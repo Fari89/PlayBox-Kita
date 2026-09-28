@@ -1,0 +1,2369 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PlayBox Kita — Rental PS4</title>
+
+    <meta
+        name="description"
+        content="PlayBox Kita — Rental PS4 dengan harga mulai Rp10.000/jam. Booking melalui WhatsApp."
+    >
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #000;
+            color: #fff;
+        }
+
+        ::selection {
+            background: #fff;
+            color: #000;
+        }
+
+        /* =========================
+           SCROLLBAR
+        ========================= */
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 20px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+
+        /* =========================
+           GLASS CARD
+        ========================= */
+
+        .glass {
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.09);
+            backdrop-filter: blur(15px);
+        }
+
+
+        /* =========================
+           GRID BACKGROUND
+        ========================= */
+
+        .grid-background {
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 45px 45px;
+        }
+
+
+        /* =========================
+           PACKAGE CARD
+        ========================= */
+
+        .package-card {
+
+            transition:
+                transform .3s ease,
+                border-color .3s ease,
+                background .3s ease;
+
+        }
+
+        .package-card:hover {
+
+            transform: translateY(-5px);
+
+            border-color:
+                rgba(255,255,255,.30);
+
+            background:
+                rgba(255,255,255,.06);
+
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .btn-white {
+
+            transition:
+                all .25s ease;
+
+        }
+
+        .btn-white:hover {
+
+            background:
+                #e5e5e5;
+
+            transform:
+                translateY(-1px);
+
+        }
+
+
+        /* =========================
+           LINE
+        ========================= */
+
+        .line {
+
+            height: 1px;
+
+            background:
+                rgba(255,255,255,.08);
+
+        }
+
+
+        /* =========================
+           INPUT
+        ========================= */
+
+        .input-field {
+
+            width: 100%;
+
+            margin-top: 8px;
+
+            padding: 13px 15px;
+
+            background: #050505;
+
+            border:
+                1px solid
+                rgba(255,255,255,.10);
+
+            border-radius: 12px;
+
+            color: #fff;
+
+            outline: none;
+
+            transition:
+                border-color .2s ease,
+                background .2s ease;
+
+        }
+
+        .input-field:focus {
+
+            border-color:
+                rgba(255,255,255,.35);
+
+            background:
+                #080808;
+
+        }
+
+        .input-field::placeholder {
+
+            color:
+                #555;
+
+        }
+
+
+        /* =========================
+           DATE / TIME ICON
+        ========================= */
+
+        input[type="date"]::-webkit-calendar-picker-indicator,
+        input[type="time"]::-webkit-calendar-picker-indicator {
+
+            filter:
+                invert(1);
+
+            opacity:
+                .7;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition:
+                all .25s ease;
+
+        }
+
+        .modal.active {
+
+            opacity: 1;
+
+            visibility: visible;
+
+        }
+
+        .modal-content {
+
+            transform:
+                translateY(20px)
+                scale(.98);
+
+            transition:
+                all .25s ease;
+
+        }
+
+        .modal.active
+        .modal-content {
+
+            transform:
+                translateY(0)
+                scale(1);
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header class="fixed top-0 left-0 right-0 z-50">
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-4">
+
+        <nav class="glass rounded-2xl px-5 py-4">
+
+            <div class="flex items-center justify-between">
+
+
+                <!-- BRAND -->
+
+                <a
+                    href="#home"
+                    class="font-black tracking-tight text-lg"
+                >
+
+                    PLAYBOX
+                    <span class="text-gray-500">
+                        KITA
+                    </span>
+
+                </a>
+
+
+                <!-- DESKTOP MENU -->
+
+                <div
+                    class="hidden md:flex items-center gap-8"
+                >
+
+                    <a
+                        href="#home"
+                        class="text-sm text-gray-400 hover:text-white transition"
+                    >
+                        Beranda
+                    </a>
+
+                    <a
+                        href="#paket"
+                        class="text-sm text-gray-400 hover:text-white transition"
+                    >
+                        Paket
+                    </a>
+
+                    <a
+                        href="#cara"
+                        class="text-sm text-gray-400 hover:text-white transition"
+                    >
+                        Cara Booking
+                    </a>
+
+                    <a
+                        href="#qris"
+                        class="text-sm text-gray-400 hover:text-white transition"
+                    >
+                        Pembayaran
+                    </a>
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <a
+                    href="#paket"
+                    class="bg-white text-black
+                           px-4 py-2
+                           rounded-lg
+                           text-sm
+                           font-bold
+                           btn-white"
+                >
+                    Booking
+                </a>
+
+            </div>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section
+    id="home"
+    class="min-h-screen
+           flex items-center
+           relative
+           overflow-hidden
+           grid-background
+           pt-32 pb-20"
+>
+
+    <div
+        class="max-w-6xl
+               mx-auto
+               px-4 sm:px-6
+               w-full"
+    >
+
+        <div class="max-w-3xl">
+
+
+            <!-- LABEL -->
+
+            <div
+                class="inline-flex
+                       border
+                       border-white/10
+                       rounded-full
+                       px-4 py-2
+                       mb-7"
+            >
+
+                <span
+                    class="text-xs
+                           text-gray-400
+                           tracking-wide"
+                >
+
+                    RENTAL PLAYSTATION 4
+
+                </span>
+
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h1
+                class="text-5xl
+                       sm:text-6xl
+                       md:text-8xl
+                       font-black
+                       tracking-[-0.05em]
+                       leading-[.9]"
+            >
+
+                MAIN.
+
+                <br>
+
+                <span class="text-gray-500">
+                    SANTAI.
+                </span>
+
+                <br>
+
+                MAIN LAGI.
+
+            </h1>
+
+
+            <!-- DESCRIPTION -->
+
+            <p
+                class="mt-8
+                       text-gray-400
+                       text-base
+                       sm:text-lg
+                       leading-relaxed
+                       max-w-xl"
+            >
+
+                PlayBox Kita menyediakan rental PS4
+                dengan harga sederhana dan proses booking
+                yang mudah melalui WhatsApp.
+
+            </p>
+
+
+            <!-- PRICE -->
+
+            <div
+                class="mt-9
+                       flex
+                       items-end
+                       gap-3"
+            >
+
+                <span
+                    class="text-5xl
+                           sm:text-6xl
+                           font-black
+                           tracking-tight"
+                >
+
+                    Rp10.000
+
+                </span>
+
+                <span
+                    class="text-gray-500 mb-2"
+                >
+
+                    / jam
+
+                </span>
+
+            </div>
+
+
+            <!-- CTA -->
+
+            <div
+                class="mt-9
+                       flex
+                       flex-col
+                       sm:flex-row
+                       gap-3"
+            >
+
+                <a
+                    href="#paket"
+                    class="bg-white
+                           text-black
+                           px-6 py-3.5
+                           rounded-xl
+                           text-center
+                           font-bold
+                           btn-white"
+                >
+
+                    Lihat Paket
+
+                </a>
+
+
+                <a
+                    href="https://wa.me/6285179872905"
+                    target="_blank"
+                    class="border
+                           border-white/10
+                           hover:bg-white/5
+                           px-6 py-3.5
+                           rounded-xl
+                           text-center
+                           font-semibold
+                           transition"
+                >
+
+                    Hubungi WhatsApp
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div
+            class="grid
+                   grid-cols-2
+                   md:grid-cols-4
+                   gap-3
+                   mt-20
+                   max-w-3xl"
+        >
+
+            <div class="glass rounded-xl p-5">
+
+                <p class="text-2xl font-black">
+                    Rp10K
+                </p>
+
+                <p class="text-xs text-gray-500 mt-1">
+                    Per Jam
+                </p>
+
+            </div>
+
+
+            <div class="glass rounded-xl p-5">
+
+                <p class="text-2xl font-black">
+                    PS4
+                </p>
+
+                <p class="text-xs text-gray-500 mt-1">
+                    Console
+                </p>
+
+            </div>
+
+
+
+
+            <div class="glass rounded-xl p-5">
+
+                <p class="text-2xl font-black">
+                    WA
+                </p>
+
+                <p class="text-xs text-gray-500 mt-1">
+                    Booking
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PAKET
+========================================================= -->
+
+<section
+    id="paket"
+    class="py-24 border-t border-white/5"
+>
+
+    <div
+        class="max-w-6xl
+               mx-auto
+               px-4 sm:px-6"
+    >
+
+
+        <!-- SECTION TITLE -->
+
+        <div class="max-w-xl mb-12">
+
+            <p
+                class="text-xs
+                       text-gray-500
+                       uppercase
+                       tracking-[.25em]"
+            >
+
+                Price List
+
+            </p>
+
+
+            <h2
+                class="text-4xl
+                       sm:text-5xl
+                       font-black
+                       tracking-tight
+                       mt-3"
+            >
+
+                Pilih Paket.
+
+            </h2>
+
+
+            <p
+                class="text-gray-500
+                       mt-4"
+            >
+
+                Semua paket menggunakan tarif
+                Rp10.000 per jam.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- PACKAGE GRID -->
+
+        <div
+            class="grid
+                   sm:grid-cols-2
+                   lg:grid-cols-4
+                   gap-4"
+        >
+
+
+            <!-- =================================================
+                 PAKET 1 JAM
+            ================================================== -->
+
+            <div
+                class="glass
+                       package-card
+                       rounded-2xl
+                       p-6"
+            >
+
+                <p
+                    class="text-xs
+                           text-gray-500"
+                >
+                    PAKET 01
+                </p>
+
+
+                <h3
+                    class="text-xl
+                           font-bold
+                           mt-2"
+                >
+                    1 Jam
+                </h3>
+
+
+                <div class="mt-7 mb-7">
+
+                    <span
+                        class="text-3xl
+                               font-black"
+                    >
+                        Rp10.000
+                    </span>
+
+                </div>
+
+
+                <div class="line mb-6"></div>
+
+
+                <div
+                    class="space-y-3
+                           text-sm
+                           text-gray-400"
+                >
+
+                    <p>PS4</p>
+
+                    <p>Controller</p>
+
+                    <p>Game tersedia</p>
+
+                </div>
+
+
+                <button
+                    onclick="openBooking(
+                        'Paket 1 Jam',
+                        'Rp10.000'
+                    )"
+                    class="w-full
+                           mt-8
+                           border
+                           border-white/10
+                           hover:bg-white
+                           hover:text-black
+                           rounded-xl
+                           py-3
+                           font-semibold
+                           transition"
+                >
+
+                    Booking
+
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PAKET 2 JAM
+            ================================================== -->
+
+            <div
+                class="glass
+                       package-card
+                       rounded-2xl
+                       p-6"
+            >
+
+                <p
+                    class="text-xs
+                           text-gray-500"
+                >
+                    PAKET 02
+                </p>
+
+
+                <h3
+                    class="text-xl
+                           font-bold
+                           mt-2"
+                >
+                    2 Jam
+                </h3>
+
+
+                <div class="mt-7 mb-7">
+
+                    <span
+                        class="text-3xl
+                               font-black"
+                    >
+                        Rp20.000
+                    </span>
+
+                </div>
+
+
+                <div class="line mb-6"></div>
+
+
+                <div
+                    class="space-y-3
+                           text-sm
+                           text-gray-400"
+                >
+
+                    <p>PS4</p>
+
+                    <p>Controller</p>
+
+                    <p>Game tersedia</p>
+
+                </div>
+
+
+                <button
+                    onclick="openBooking(
+                        'Paket 2 Jam',
+                        'Rp20.000'
+                    )"
+                    class="w-full
+                           mt-8
+                           border
+                           border-white/10
+                           hover:bg-white
+                           hover:text-black
+                           rounded-xl
+                           py-3
+                           font-semibold
+                           transition"
+                >
+
+                    Booking
+
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PAKET 3 JAM - PALING POPULER
+                 WARNA SAMA DENGAN CARD LAIN
+            ================================================== -->
+
+            <div
+                class="glass
+                       package-card
+                       rounded-2xl
+                       p-6
+                       relative"
+            >
+
+                <!-- LABEL POPULER -->
+
+                <div
+                    class="absolute
+                           top-5
+                           right-5
+                           border
+                           border-white/20
+                           rounded-full
+                           px-3
+                           py-1"
+                >
+
+                    <span
+                        class="text-[9px]
+                               uppercase
+                               tracking-widest
+                               text-gray-300"
+                    >
+
+                        Populer
+
+                    </span>
+
+                </div>
+
+
+                <p
+                    class="text-xs
+                           text-gray-500"
+                >
+                    PAKET 03
+                </p>
+
+
+                <h3
+                    class="text-xl
+                           font-bold
+                           mt-2"
+                >
+                    3 Jam
+                </h3>
+
+
+                <div class="mt-7 mb-7">
+
+                    <span
+                        class="text-3xl
+                               font-black"
+                    >
+                        Rp30.000
+                    </span>
+
+                </div>
+
+
+                <div class="line mb-6"></div>
+
+
+                <div
+                    class="space-y-3
+                           text-sm
+                           text-gray-400"
+                >
+
+                    <p>PS4</p>
+
+                    <p>Controller</p>
+
+                    <p>Game tersedia</p>
+
+                </div>
+
+
+                <button
+                    onclick="openBooking(
+                        'Paket 3 Jam',
+                        'Rp30.000'
+                    )"
+                    class="w-full
+                           mt-8
+                           border
+                           border-white/10
+                           hover:bg-white
+                           hover:text-black
+                           rounded-xl
+                           py-3
+                           font-semibold
+                           transition"
+                >
+
+                    Booking
+
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PAKET 5 JAM
+            ================================================== -->
+
+            <div
+                class="glass
+                       package-card
+                       rounded-2xl
+                       p-6"
+            >
+
+                <p
+                    class="text-xs
+                           text-gray-500"
+                >
+                    PAKET 04
+                </p>
+
+
+                <h3
+                    class="text-xl
+                           font-bold
+                           mt-2"
+                >
+                    5 Jam
+                </h3>
+
+
+                <div class="mt-7 mb-7">
+
+                    <span
+                        class="text-3xl
+                               font-black"
+                    >
+                        Rp50.000
+                    </span>
+
+                </div>
+
+
+                <div class="line mb-6"></div>
+
+
+                <div
+                    class="space-y-3
+                           text-sm
+                           text-gray-400"
+                >
+
+                    <p>PS4</p>
+
+                    <p>Controller</p>
+
+                    <p>Game tersedia</p>
+
+                </div>
+
+
+                <button
+                    onclick="openBooking(
+                        'Paket 5 Jam',
+                        'Rp50.000'
+                    )"
+                    class="w-full
+                           mt-8
+                           border
+                           border-white/10
+                           hover:bg-white
+                           hover:text-black
+                           rounded-xl
+                           py-3
+                           font-semibold
+                           transition"
+                >
+
+                    Booking
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PAKET MALAM
+        ================================================== -->
+
+        <div
+            class="glass
+                   rounded-2xl
+                   mt-4
+                   p-6 sm:p-7"
+        >
+
+            <div
+                class="flex
+                       flex-col
+                       sm:flex-row
+                       sm:items-center
+                       justify-between
+                       gap-6"
+            >
+
+
+                <div>
+
+                    <p
+                        class="text-xs
+                               text-gray-500
+                               tracking-widest"
+                    >
+
+                        PAKET MALAM
+
+                    </p>
+
+
+                    <h3
+                        class="text-2xl
+                               font-black
+                               mt-2"
+                    >
+
+                        8 Jam
+
+                    </h3>
+
+
+                    <p
+                        class="text-sm
+                               text-gray-500
+                               mt-2"
+                    >
+
+                        Cocok untuk sesi bermain
+                        bersama teman.
+
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="flex
+                           items-center
+                           gap-5"
+                >
+
+                    <div>
+
+                        <p
+                            class="text-2xl
+                                   font-black"
+                        >
+                            Rp80.000
+                        </p>
+
+                        <p
+                            class="text-xs
+                                   text-gray-500"
+                        >
+                            8 jam
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        onclick="openBooking(
+                            'Paket Malam 8 Jam',
+                            'Rp80.000'
+                        )"
+                        class="bg-white
+                               text-black
+                               px-5 py-3
+                               rounded-xl
+                               font-bold
+                               btn-white"
+                    >
+
+                        Booking
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CARA BOOKING
+========================================================= -->
+
+<section
+    id="cara"
+    class="py-24
+           bg-[#080808]
+           border-y
+           border-white/5"
+>
+
+    <div
+        class="max-w-6xl
+               mx-auto
+               px-4 sm:px-6"
+    >
+
+        <div class="max-w-xl mb-12">
+
+            <p
+                class="text-xs
+                       text-gray-500
+                       uppercase
+                       tracking-[.25em]"
+            >
+
+                How It Works
+
+            </p>
+
+
+            <h2
+                class="text-4xl
+                       sm:text-5xl
+                       font-black
+                       mt-3"
+            >
+
+                Cara Booking.
+
+            </h2>
+
+        </div>
+
+
+        <div
+            class="grid
+                   sm:grid-cols-2
+                   lg:grid-cols-4
+                   gap-4"
+        >
+
+
+            <div class="glass rounded-2xl p-6">
+
+                <p
+                    class="text-gray-600
+                           text-3xl
+                           font-black"
+                >
+                    01
+                </p>
+
+                <h3 class="font-bold mt-6">
+                    Pilih Paket
+                </h3>
+
+                <p
+                    class="text-sm
+                           text-gray-500
+                           leading-relaxed
+                           mt-2"
+                >
+
+                    Pilih durasi bermain
+                    yang kamu inginkan.
+
+                </p>
+
+            </div>
+
+
+            <div class="glass rounded-2xl p-6">
+
+                <p
+                    class="text-gray-600
+                           text-3xl
+                           font-black"
+                >
+                    02
+                </p>
+
+                <h3 class="font-bold mt-6">
+                    Isi Data
+                </h3>
+
+                <p
+                    class="text-sm
+                           text-gray-500
+                           leading-relaxed
+                           mt-2"
+                >
+
+                    Pilih nama, tanggal,
+                    dan waktu bermain.
+
+                </p>
+
+            </div>
+
+
+            <div class="glass rounded-2xl p-6">
+
+                <p
+                    class="text-gray-600
+                           text-3xl
+                           font-black"
+                >
+                    03
+                </p>
+
+                <h3 class="font-bold mt-6">
+                    Konfirmasi
+                </h3>
+
+                <p
+                    class="text-sm
+                           text-gray-500
+                           leading-relaxed
+                           mt-2"
+                >
+
+                    Data booking dikirim
+                    otomatis ke WhatsApp.
+
+                </p>
+
+            </div>
+
+
+            <div class="glass rounded-2xl p-6">
+
+                <p
+                    class="text-gray-600
+                           text-3xl
+                           font-black"
+                >
+                    04
+                </p>
+
+                <h3 class="font-bold mt-6">
+                    Bayar & Main
+                </h3>
+
+                <p
+                    class="text-sm
+                           text-gray-500
+                           leading-relaxed
+                           mt-2"
+                >
+
+                    Lakukan pembayaran
+                    lalu datang sesuai jadwal.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     QRIS
+========================================================= -->
+
+<section
+    id="qris"
+    class="py-24"
+>
+
+    <div
+        class="max-w-6xl
+               mx-auto
+               px-4 sm:px-6"
+    >
+
+        <div
+            class="grid
+                   lg:grid-cols-2
+                   gap-16
+                   items-center"
+        >
+
+
+            <!-- DESCRIPTION -->
+
+            <div>
+
+                <p
+                    class="text-xs
+                           text-gray-500
+                           uppercase
+                           tracking-[.25em]"
+                >
+
+                    Payment
+
+                </p>
+
+
+                <h2
+                    class="text-4xl
+                           sm:text-5xl
+                           font-black
+                           mt-3"
+                >
+
+                    Pembayaran.
+
+                </h2>
+
+
+                <p
+                    class="text-gray-500
+                           mt-5
+                           leading-relaxed
+                           max-w-lg"
+                >
+
+                    Setelah booking dikonfirmasi,
+                    lakukan pembayaran menggunakan
+                    QRIS PlayBox Kita.
+
+                </p>
+
+
+                <div class="mt-8">
+
+                    <div class="line mb-5"></div>
+
+
+                    <div
+                        class="flex
+                               justify-between
+                               py-3"
+                    >
+
+                        <span class="text-sm text-gray-500">
+                            Metode
+                        </span>
+
+                        <span class="text-sm font-semibold">
+                            QRIS
+                        </span>
+
+                    </div>
+
+
+                    <div class="line"></div>
+
+
+                    <div
+                        class="flex
+                               justify-between
+                               py-3"
+                    >
+
+                        <span class="text-sm text-gray-500">
+                            Konfirmasi
+                        </span>
+
+                        <span class="text-sm font-semibold">
+                            WhatsApp
+                        </span>
+
+                    </div>
+
+
+                    <div class="line"></div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- QRIS -->
+
+            <div
+                class="max-w-sm
+                       mx-auto
+                       w-full"
+            >
+
+                <div
+                    class="glass
+                           rounded-3xl
+                           p-6"
+                >
+
+                    <div
+                        class="mb-5"
+                    >
+
+                        <p class="font-bold">
+                            PLAYBOX KITA
+                        </p>
+
+                        <p
+                            class="text-xs
+                                   text-gray-500
+                                   mt-1"
+                        >
+
+                            QRIS PAYMENT
+
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="bg-white
+                               rounded-2xl
+                               p-5
+                               aspect-square
+                               flex
+                               items-center
+                               justify-center"
+                    >
+
+                        <img
+                            id="qrisImage"
+                            src="assets/qris.png"
+                            alt="QRIS PlayBox Kita"
+                            class="w-full
+                                   h-full
+                                   object-contain"
+                            onerror="showQRPlaceholder()"
+                        >
+
+
+                        <div
+                            id="qrisPlaceholder"
+                            class="hidden
+                                   text-center
+                                   text-black"
+                        >
+
+                            <p
+                                class="font-black
+                                       text-lg"
+                            >
+
+                                QRIS
+
+                            </p>
+
+                            <p
+                                class="text-xs
+                                       text-gray-500
+                                       mt-2"
+                            >
+
+                                Masukkan file
+                                <b>qris.png</b>
+                                ke folder assets.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <p
+                        class="text-center
+                               text-xs
+                               text-gray-500
+                               mt-5"
+                    >
+
+                        Scan QRIS untuk melakukan pembayaran.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CTA
+========================================================= -->
+
+<section
+    class="px-4 sm:px-6 pb-24"
+>
+
+    <div class="max-w-6xl mx-auto">
+
+        <div
+            class="bg-white
+                   text-black
+                   rounded-3xl
+                   p-8 sm:p-12
+                   text-center"
+        >
+
+            <p
+                class="text-xs
+                       text-gray-500
+                       uppercase
+                       tracking-[.25em]"
+            >
+
+                PlayBox Kita
+
+            </p>
+
+
+            <h2
+                class="text-4xl
+                       sm:text-5xl
+                       font-black
+                       tracking-tight
+                       mt-4"
+            >
+
+                Siap Main?
+
+            </h2>
+
+
+            <p
+                class="text-gray-500
+                       mt-4
+                       max-w-md
+                       mx-auto"
+            >
+
+                Pilih paket dan lakukan booking
+                melalui WhatsApp.
+
+            </p>
+
+
+            <a
+                href="#paket"
+                class="inline-block
+                       bg-black
+                       text-white
+                       px-7 py-3.5
+                       rounded-xl
+                       font-bold
+                       mt-7
+                       hover:bg-gray-800
+                       transition"
+            >
+
+                Booking Sekarang
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer
+    class="border-t
+           border-white/5
+           py-10"
+>
+
+    <div
+        class="max-w-6xl
+               mx-auto
+               px-4 sm:px-6"
+    >
+
+        <div
+            class="flex
+                   flex-col
+                   sm:flex-row
+                   justify-between
+                   gap-5
+                   items-center"
+        >
+
+            <div>
+
+                <p class="font-black">
+                    PLAYBOX KITA
+                </p>
+
+                <p
+                    class="text-xs
+                           text-gray-600
+                           mt-1"
+                >
+
+                    Rental PS4
+
+                </p>
+
+            </div>
+
+
+            <p
+                class="text-xs
+                       text-gray-600"
+            >
+
+                ©
+                <span id="year"></span>
+                PlayBox Kita.
+
+            </p>
+
+
+            <a
+                href="https://wa.me/6285179872905"
+                target="_blank"
+                class="text-sm
+                       text-gray-400
+                       hover:text-white
+                       transition"
+            >
+
+                0851 7987 2905
+
+            </a>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     BOOKING MODAL
+========================================================= -->
+
+<div
+    id="bookingModal"
+    class="modal
+           fixed
+           inset-0
+           z-[100]
+           bg-black/80
+           backdrop-blur-sm
+           flex
+           items-center
+           justify-center
+           px-4
+           py-6
+           overflow-y-auto"
+>
+
+
+    <div
+        class="modal-content
+               glass
+               rounded-3xl
+               w-full
+               max-w-md
+               p-6
+               sm:p-8
+               my-auto"
+    >
+
+
+        <!-- MODAL HEADER -->
+
+        <div
+            class="flex
+                   justify-between
+                   items-start"
+        >
+
+            <div>
+
+                <p
+                    class="text-xs
+                           text-gray-500
+                           uppercase
+                           tracking-widest"
+                >
+
+                    Booking
+
+                </p>
+
+
+                <h3
+                    class="text-2xl
+                           font-black
+                           mt-2"
+                >
+
+                    Isi Data
+
+                </h3>
+
+            </div>
+
+
+            <button
+                type="button"
+                onclick="closeBooking()"
+                class="text-gray-500
+                       hover:text-white
+                       text-2xl
+                       leading-none"
+            >
+
+                ×
+
+            </button>
+
+        </div>
+
+
+
+        <!-- SELECTED PACKAGE -->
+
+        <div
+            class="mt-6
+                   bg-white/5
+                   border
+                   border-white/10
+                   rounded-xl
+                   p-4"
+        >
+
+            <p
+                class="text-xs
+                       text-gray-500"
+            >
+
+                Paket dipilih
+
+            </p>
+
+
+            <p
+                id="selectedPackage"
+                class="font-bold
+                       mt-1"
+            >
+
+                -
+
+            </p>
+
+
+            <p
+                id="selectedPrice"
+                class="text-gray-400
+                       text-sm
+                       mt-1"
+            >
+
+                -
+
+            </p>
+
+        </div>
+
+
+
+        <!-- FORM -->
+
+        <form
+            onsubmit="sendBooking(event)"
+            class="mt-6
+                   space-y-4"
+        >
+
+
+            <!-- NAMA -->
+
+            <div>
+
+                <label
+                    for="customerName"
+                    class="text-xs
+                           text-gray-500"
+                >
+
+                    Nama
+
+                </label>
+
+
+                <input
+                    id="customerName"
+                    type="text"
+                    required
+                    autocomplete="name"
+                    placeholder="Masukkan nama"
+                    class="input-field"
+                >
+
+            </div>
+
+
+
+            <!-- TANGGAL -->
+
+            <div>
+
+                <label
+                    for="bookingDate"
+                    class="text-xs
+                           text-gray-500"
+                >
+
+                    Tanggal Booking
+
+                </label>
+
+
+                <input
+                    id="bookingDate"
+                    type="date"
+                    required
+                    class="input-field"
+                >
+
+            </div>
+
+
+
+            <!-- JAM -->
+
+            <div>
+
+                <label
+                    for="bookingTime"
+                    class="text-xs
+                           text-gray-500"
+                >
+
+                    Jam Mulai
+
+                </label>
+
+
+                <input
+                    id="bookingTime"
+                    type="time"
+                    required
+                    class="input-field"
+                >
+
+            </div>
+
+
+
+            <!-- BUTTON -->
+
+            <button
+                type="submit"
+                class="w-full
+                       bg-white
+                       text-black
+                       rounded-xl
+                       py-3.5
+                       font-bold
+                       btn-white"
+            >
+
+                Lanjut ke WhatsApp
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+    /* =====================================================
+       NOMOR WHATSAPP
+    ===================================================== */
+
+    const whatsappNumber =
+        "6285179872905";
+
+
+
+    /* =====================================================
+       VARIABEL BOOKING
+    ===================================================== */
+
+    let selectedPackage = "";
+
+    let selectedPrice = "";
+
+
+
+    /* =====================================================
+       OPEN MODAL
+    ===================================================== */
+
+    function openBooking(
+        packageName,
+        price
+    ) {
+
+        selectedPackage =
+            packageName;
+
+        selectedPrice =
+            price;
+
+
+        document.getElementById(
+            "selectedPackage"
+        ).textContent =
+            packageName;
+
+
+        document.getElementById(
+            "selectedPrice"
+        ).textContent =
+            price;
+
+
+        document.getElementById(
+            "bookingModal"
+        ).classList.add(
+            "active"
+        );
+
+
+        document.body.style.overflow =
+            "hidden";
+
+
+        /*
+        Set tanggal minimum
+        menjadi hari ini
+        */
+
+        setMinimumDate();
+
+
+        /*
+        Reset form
+        */
+
+        document.getElementById(
+            "customerName"
+        ).focus();
+
+    }
+
+
+
+    /* =====================================================
+       CLOSE MODAL
+    ===================================================== */
+
+    function closeBooking() {
+
+        document.getElementById(
+            "bookingModal"
+        ).classList.remove(
+            "active"
+        );
+
+
+        document.body.style.overflow =
+            "";
+
+    }
+
+
+
+    /* =====================================================
+       SET MINIMUM DATE
+       AGAR TIDAK BISA BOOKING TANGGAL LALU
+    ===================================================== */
+
+    function setMinimumDate() {
+
+        const dateInput =
+            document.getElementById(
+                "bookingDate"
+            );
+
+
+        const today =
+            new Date();
+
+
+        const year =
+            today.getFullYear();
+
+
+        const month =
+            String(
+                today.getMonth() + 1
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const day =
+            String(
+                today.getDate()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const todayString =
+            `${year}-${month}-${day}`;
+
+
+        dateInput.min =
+            todayString;
+
+    }
+
+
+
+    /* =====================================================
+       SEND BOOKING
+    ===================================================== */
+
+    function sendBooking(event) {
+
+        event.preventDefault();
+
+
+        const name =
+            document.getElementById(
+                "customerName"
+            ).value.trim();
+
+
+        const date =
+            document.getElementById(
+                "bookingDate"
+            ).value;
+
+
+        const time =
+            document.getElementById(
+                "bookingTime"
+            ).value;
+
+
+        /*
+        Validasi nama
+        */
+
+        if (!name) {
+
+            alert(
+                "Silakan masukkan nama terlebih dahulu."
+            );
+
+            return;
+
+        }
+
+
+        /*
+        Validasi tanggal
+        */
+
+        if (!date) {
+
+            alert(
+                "Silakan pilih tanggal booking."
+            );
+
+            return;
+
+        }
+
+
+        /*
+        Validasi jam
+        */
+
+        if (!time) {
+
+            alert(
+                "Silakan pilih jam mulai."
+            );
+
+            return;
+
+        }
+
+
+        /*
+        Format tanggal
+        */
+
+        const dateObject =
+            new Date(
+                date + "T00:00:00"
+            );
+
+
+        const formattedDate =
+            dateObject.toLocaleDateString(
+                "id-ID",
+                {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+
+        /*
+        Pesan WhatsApp
+        */
+
+        const message =
+
+`Halo PlayBox Kita,
+
+Saya ingin melakukan booking PS4.
+
+DETAIL BOOKING
+
+Nama: ${name}
+Paket: ${selectedPackage}
+Harga: ${selectedPrice}
+Tanggal: ${formattedDate}
+Jam mulai: ${time}
+
+Mohon konfirmasi ketersediaan booking saya.
+
+Terima kasih.`;
+
+
+        /*
+        Buat URL WhatsApp
+        */
+
+        const whatsappURL =
+            "https://wa.me/" +
+            whatsappNumber +
+            "?text=" +
+            encodeURIComponent(
+                message
+            );
+
+
+        /*
+        Buka WhatsApp
+        */
+
+        window.open(
+            whatsappURL,
+            "_blank"
+        );
+
+
+        /*
+        Tutup modal
+        */
+
+        closeBooking();
+
+    }
+
+
+
+    /* =====================================================
+       QRIS ERROR
+    ===================================================== */
+
+    function showQRPlaceholder() {
+
+        const image =
+            document.getElementById(
+                "qrisImage"
+            );
+
+
+        const placeholder =
+            document.getElementById(
+                "qrisPlaceholder"
+            );
+
+
+        if (image) {
+
+            image.style.display =
+                "none";
+
+        }
+
+
+        if (placeholder) {
+
+            placeholder.classList.remove(
+                "hidden"
+            );
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       FOOTER YEAR
+    ===================================================== */
+
+    document.getElementById(
+        "year"
+    ).textContent =
+        new Date().getFullYear();
+
+
+
+    /* =====================================================
+       CLOSE MODAL CLICK OUTSIDE
+    ===================================================== */
+
+    document.getElementById(
+        "bookingModal"
+    ).addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target === this
+            ) {
+
+                closeBooking();
+
+            }
+
+        }
+    );
+
+
+
+    /* =====================================================
+       ESC KEY
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closeBooking();
+
+            }
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+</html>
+```
